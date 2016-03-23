@@ -111,7 +111,7 @@ int getnum(void)
 {
   char s[80];
 
-  gets(s);
+  fgets(s, sizeof(s), stdin);
   while(*prog != ')') prog++;
   prog++;  /* advance to end of line */
   return atoi(s);
