@@ -39,3 +39,6 @@
 # Output directories
 Debug
 Release
+
+# Linux Binary
+littlec
