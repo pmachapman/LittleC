@@ -2,9 +2,12 @@
 
 /* Add more of your own, here. */
 
+#if defined(_MSC_VER)
 #include <conio.h>  /* if your compiler does not
                        support this  header file,
                        remove it */
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -38,7 +41,11 @@ void putback(void);
 int call_getche()
 {
   char ch;
+  #if defined(_MSC_VER)
   ch = _getche();
+  #else
+  ch = getchar();
+  #endif
   while(*prog!=')') prog++;
   prog++;   /* advance to end of line */
   return ch;
