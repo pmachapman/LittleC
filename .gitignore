@@ -30,3 +30,12 @@
 
 # Debug files
 *.dSYM/
+
+# Visual C++ 6.0 files
+*.ncb
+*.opt
+*.plg
+
+# Output directories
+Debug
+Release
