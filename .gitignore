@@ -31,14 +31,28 @@
 # Debug files
 *.dSYM/
 
-# Visual C++ 6.0 files
+
+# Visual C++ cache files
+ipch/
+*.aps
 *.ncb
+*.opendb
+*.opensdf
+*.sdf
+*.cachefile
+
+# Visual Studio 6 workspace options file
 *.opt
+
+# Visual Studio 6 build log
 *.plg
 
-# Output directories
-Debug
-Release
+# Build results
+[Dd]ebug/
+[Rr]elease/
 
 # Linux Binary
 littlec
+
+# Visual Studio 2015 cache/options directory
+.vs/

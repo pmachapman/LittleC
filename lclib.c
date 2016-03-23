@@ -4,8 +4,8 @@
 
 #if defined(_MSC_VER)
 #include <conio.h>  /* if your compiler does not
-                       support this  header file,
-                       remove it */
+					   support this  header file,
+					   remove it */
 #endif
 
 #include <stdio.h>
@@ -16,8 +16,10 @@ extern char token[80]; /* holds string representation of token */
 extern char token_type; /* contains type of token */
 extern char tok; /* holds the internal representation of token */
 
-enum tok_types {DELIMITER, IDENTIFIER, NUMBER, KEYWORD,
-                TEMP, STRING, BLOCK};
+enum tok_types {
+	DELIMITER, IDENTIFIER, NUMBER, KEYWORD,
+	TEMP, STRING, BLOCK
+};
 
 /* These are the constants used to call sntx_err() when
    a syntax error occurs. Add more if you like.
@@ -25,12 +27,14 @@ enum tok_types {DELIMITER, IDENTIFIER, NUMBER, KEYWORD,
    nothing else seems appropriate.
 */
 enum error_msg
-     {SYNTAX, UNBAL_PARENS, NO_EXP, EQUALS_EXPECTED,
-      NOT_VAR, PARAM_ERR, SEMI_EXPECTED,
-      UNBAL_BRACES, FUNC_UNDEF, TYPE_EXPECTED,
-      NEST_FUNC, RET_NOCALL, PAREN_EXPECTED,
-      WHILE_EXPECTED, QUOTE_EXPECTED, NOT_STRING,
-      TOO_MANY_LVARS, DIV_BY_ZERO};
+{
+	SYNTAX, UNBAL_PARENS, NO_EXP, EQUALS_EXPECTED,
+	NOT_VAR, PARAM_ERR, SEMI_EXPECTED,
+	UNBAL_BRACES, FUNC_UNDEF, TYPE_EXPECTED,
+	NEST_FUNC, RET_NOCALL, PAREN_EXPECTED,
+	WHILE_EXPECTED, QUOTE_EXPECTED, NOT_STRING,
+	TOO_MANY_LVARS, DIV_BY_ZERO
+};
 
 int get_token(void);
 void sntx_err(int error), eval_exp(int *result);
@@ -40,79 +44,79 @@ void putback(void);
    your compiler does not support _getche().) */
 int call_getche()
 {
-  char ch;
-  #if defined(_MSC_VER)
-  ch = _getche();
-  #else
-  ch = getchar();
-  #endif
-  while(*prog!=')') prog++;
-  prog++;   /* advance to end of line */
-  return ch;
+	char ch;
+#if defined(_MSC_VER)
+	ch = _getche();
+#else
+	ch = getchar();
+#endif
+	while (*prog != ')') prog++;
+	prog++;   /* advance to end of line */
+	return ch;
 }
 
 /* Put a character to the display. */
 int call_putch()
 {
-  int value;
+	int value;
 
-  eval_exp(&value);
-  printf("%c", value);
-  return value;
+	eval_exp(&value);
+	printf("%c", value);
+	return value;
 }
 
 /* Call puts(). */
 int call_puts(void)
 {
-  get_token();
-  if(*token!='(') sntx_err(PAREN_EXPECTED);
-  get_token();
-  if(token_type!=STRING) sntx_err(QUOTE_EXPECTED);
-  puts(token);
-  get_token();
-  if(*token!=')') sntx_err(PAREN_EXPECTED);
+	get_token();
+	if (*token != '(') sntx_err(PAREN_EXPECTED);
+	get_token();
+	if (token_type != STRING) sntx_err(QUOTE_EXPECTED);
+	puts(token);
+	get_token();
+	if (*token != ')') sntx_err(PAREN_EXPECTED);
 
-  get_token();
-  if(*token!=';') sntx_err(SEMI_EXPECTED);
-  putback();
-  return 0;
+	get_token();
+	if (*token != ';') sntx_err(SEMI_EXPECTED);
+	putback();
+	return 0;
 }
 
 /* A built-in console output function. */
 int print(void)
 {
-  int i;
+	int i;
 
-  get_token();
-  if(*token!='(')  sntx_err(PAREN_EXPECTED);
+	get_token();
+	if (*token != '(')  sntx_err(PAREN_EXPECTED);
 
-  get_token();
-  if(token_type==STRING) { /* output a string */
-    printf("%s ", token);
-  }
-  else {  /* output a number */
-   putback();
-   eval_exp(&i);
-   printf("%d ", i);
-  }
+	get_token();
+	if (token_type == STRING) { /* output a string */
+		printf("%s ", token);
+	}
+	else {  /* output a number */
+		putback();
+		eval_exp(&i);
+		printf("%d ", i);
+	}
 
-  get_token();
+	get_token();
 
-  if(*token!=')') sntx_err(PAREN_EXPECTED);
+	if (*token != ')') sntx_err(PAREN_EXPECTED);
 
-  get_token();
-  if(*token!=';') sntx_err(SEMI_EXPECTED);
-  putback();
-  return 0;
+	get_token();
+	if (*token != ';') sntx_err(SEMI_EXPECTED);
+	putback();
+	return 0;
 }
 
 /* Read an integer from the keyboard. */
 int getnum(void)
 {
-  char s[80];
+	char s[80];
 
-  fgets(s, sizeof(s), stdin);
-  while(*prog != ')') prog++;
-  prog++;  /* advance to end of line */
-  return atoi(s);
+	fgets(s, sizeof(s), stdin);
+	while (*prog != ')') prog++;
+	prog++;  /* advance to end of line */
+	return atoi(s);
 }
