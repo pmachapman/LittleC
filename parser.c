@@ -104,11 +104,11 @@ void eval_exp5(int *value);
 void atom(int *value);
 void sntx_err(int error), putback(void);
 void assign_var(char *var_name, int value);
-int isdelim(char c), look_up(char *s), iswhite(char c);
-int find_var(char *s), get_token(void);
+int isdelim(char c), iswhite(char c);
+int find_var(char *s);
 int internal_func(char *s);
 int is_var(char *s);
-char *find_func(char *name);
+char *find_func(char *name), look_up(char *s), get_token(void);
 void call(void);
 
 /* Entry point into parser. */
@@ -132,7 +132,7 @@ void eval_exp0(int *value)
 {
 	char temp[ID_LEN];  /* holds name of var receiving
 						   the assignment */
-	register int temp_tok;
+	register char temp_tok;
 
 	if (token_type == IDENTIFIER) {
 		if (is_var(token)) {  /* if a var, see if assignment */
@@ -351,7 +351,7 @@ void sntx_err(int error)
 }
 
 /* Get a token. */
-int get_token(void)
+char get_token(void)
 {
 
 	register char *temp;
@@ -489,14 +489,14 @@ void putback(void)
 /* Look up a token's internal representation in the
    token table.
 */
-int look_up(char *s)
+char look_up(char *s)
 {
 	register int i;
 	char *p;
 
 	/* convert to lowercase */
 	p = s;
-	while (*p) { *p = tolower(*p); p++; }
+	while (*p) { *p = (char)tolower(*p); p++; }
 
 	/* see if token is in table */
 	for (i = 0; *table[i].command; i++) {

@@ -105,8 +105,8 @@ void exec_while(void), func_push(int i), exec_do(void);
 void assign_var(char *var_name, int value);
 int load_program(char *p, char *fname), find_var(char *s);
 void interp_block(void), func_ret(void);
-int func_pop(void), is_var(char *s), get_token(void);
-char *find_func(char *name);
+int func_pop(void), is_var(char *s);
+char *find_func(char *name), get_token(void);
 
 int main(int argc, char *argv[])
 {
@@ -221,7 +221,7 @@ int load_program(char *p, char *fname)
 
 	i = 0;
 	do {
-		*p = getc(fp);
+		*p = (char)getc(fp);
 		p++; i++;
 	} while (!feof(fp) && i < PROG_SIZE);
 

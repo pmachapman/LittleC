@@ -46,9 +46,9 @@ int call_getche()
 {
 	char ch;
 #if defined(_MSC_VER)
-	ch = _getche();
+	ch = (char)_getche();
 #else
-	ch = getchar();
+	ch = (char)getchar();
 #endif
 	while (*prog != ')') prog++;
 	prog++;   /* advance to end of line */
