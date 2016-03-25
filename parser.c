@@ -430,6 +430,17 @@ char get_token(void)
 			prog++;
 		}
 
+	/* look for C++ style comments */
+	if (*prog == '/')
+		if (*(prog + 1) == '/') { /* is a comment */
+			prog += 2;
+			/* find end of line */
+			while (*prog != '\r' && *prog != '\n' && *prog != '\0') prog++;
+			if (*prog == '\r' && *(prog + 1) == '\n') {
+				prog++;
+			}
+		}
+
 	/* look for the end of file after a comment */
 	if (*prog == '\0') { /* end of file */
 		*token = '\0';

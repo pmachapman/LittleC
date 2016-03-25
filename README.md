@@ -17,6 +17,7 @@ The following features are implemented:
  * These operators: +, –, *, /, %, <, >, <=, >=, ==, !=, unary –, and unary +
  * Functions returning integers
  * /* ... */-style comments
+ * C++ style comments
 
 ## Restrictions
 
