@@ -366,7 +366,9 @@ char get_token(void)
 
 	if (*prog == '\r') {
 		++prog;
-		++prog;
+		/* Only skip \n if it exists (if it doesn't, we are running on mac) */
+		if (*prog == '\n')
+			++prog;
 		/* skip over white space */
 		while (iswhite(*prog) && *prog) ++prog;
 	}
