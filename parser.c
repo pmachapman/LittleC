@@ -26,10 +26,6 @@ enum tokens {
 	SWITCH, RETURN, EOL, FINISHED, END
 };
 
-enum end_of_lines {
-	ZERO, WIN, UNIX, MAC
-};
-
 enum double_ops { LT = 1, LE, GT, GE, EQ, NE };
 
 /* These are the constants used to call sntx_err() when
@@ -316,7 +312,6 @@ void sntx_err(int error)
 	char *p, *temp;
 	int linecount = 0;
 	register int i;
-	int eol_type = 0;
 
 	static char *e[] = {
 	  "syntax error",
@@ -352,16 +347,11 @@ void sntx_err(int error)
 			/* If we are a mac, backtrack */
 			if (*p != '\n') {
 				p--;
-				eol_type = MAC; /* mac */
-			} else {
-				eol_type = WIN; /* windows */
 			}
 		} else if (*p == '\n') {
 			linecount++;
-			eol_type = UNIX; /* unix */
 		} else if (*p == '\0') {
 			linecount++;
-			eol_type = ZERO; 
 		}
 	}
 	printf(" in line %d\n", linecount);
