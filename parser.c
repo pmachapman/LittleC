@@ -430,6 +430,13 @@ char get_token(void)
 			prog++;
 		}
 
+	/* look for the end of file after a comment */
+	if (*prog == '\0') { /* end of file */
+		*token = '\0';
+		tok = FINISHED;
+		return (token_type = DELIMITER);
+	}
+
 	if (strchr("!<>=", *prog)) { /* is or might be
 								   a relational operator */
 		switch (*prog) {
