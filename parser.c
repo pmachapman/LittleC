@@ -26,6 +26,10 @@ enum tokens {
 	SWITCH, RETURN, EOL, FINISHED, END
 };
 
+enum end_of_lines {
+	ZERO, WIN, UNIX, MAC
+};
+
 enum double_ops { LT = 1, LE, GT, GE, EQ, NE };
 
 /* These are the constants used to call sntx_err() when
@@ -312,6 +316,7 @@ void sntx_err(int error)
 	char *p, *temp;
 	int linecount = 0;
 	register int i;
+	int eol_type = 0;
 
 	static char *e[] = {
 	  "syntax error",
@@ -335,16 +340,34 @@ void sntx_err(int error)
 	};
 	printf("\n%s", e[error]);
 	p = p_buf;
-	while (p != prog) {  /* find line number of error */
+	while (p != prog && *p != '\0') {  /* find line number of error */
 		p++;
 		if (*p == '\r') {
 			linecount++;
+			if (p == prog) {
+				break;
+			}
+			/* See if this is a Windows or Mac newline */
+			p++;
+			/* If we are a mac, backtrack */
+			if (*p != '\n') {
+				p--;
+				eol_type = MAC; /* mac */
+			} else {
+				eol_type = WIN; /* windows */
+			}
+		} else if (*p == '\n') {
+			linecount++;
+			eol_type = UNIX; /* unix */
+		} else if (*p == '\0') {
+			linecount++;
+			eol_type = ZERO; 
 		}
 	}
 	printf(" in line %d\n", linecount);
 
-	temp = p;
-	for (i = 0; i < 20 && p > p_buf && *p != '\n'; i++, p--);
+	temp = p--;
+	for (i = 0; i < 20 && p > p_buf && *p != '\n' && *p != '\r'; i++, p--);
 	for (i = 0; i < 30 && p <= temp; i++, p++) printf("%c", *p);
 
 	longjmp(e_buf, 1); /* return to safe point */
@@ -364,11 +387,20 @@ char get_token(void)
 	/* skip over white space */
 	while (iswhite(*prog) && *prog) ++prog;
 
+	/* Handle Windows and Mac newlines */
 	if (*prog == '\r') {
 		++prog;
 		/* Only skip \n if it exists (if it doesn't, we are running on mac) */
-		if (*prog == '\n')
+		if (*prog == '\n') {
 			++prog;
+		}
+		/* skip over white space */
+		while (iswhite(*prog) && *prog) ++prog;
+	}
+
+	/* Handle Unix newlines */
+	if (*prog == '\n') {
+		++prog;
 		/* skip over white space */
 		while (iswhite(*prog) && *prog) ++prog;
 	}
@@ -451,8 +483,8 @@ char get_token(void)
 
 	if (*prog == '"') { /* quoted string */
 		prog++;
-		while (*prog != '"'&& *prog != '\r') *temp++ = *prog++;
-		if (*prog == '\r') sntx_err(SYNTAX);
+		while (*prog != '"' && *prog != '\r' && *prog != '\n' && *prog != '\0') *temp++ = *prog++;
+		if (*prog == '\r' || *prog == '\n' || *prog == '\0') sntx_err(SYNTAX);
 		prog++; *temp = '\0';
 		return (token_type = STRING);
 	}
@@ -524,7 +556,7 @@ int internal_func(char *s)
 int isdelim(char c)
 {
 	if (strchr(" !;,+-<>'/*%^=()", c) || c == 9 ||
-		c == '\r' || c == 0) return 1;
+		c == '\r' || c == '\n' || c == 0) return 1;
 	return 0;
 }
 
