@@ -414,7 +414,11 @@ char get_token(void)
 		if (*(prog + 1) == '*') { /* is a comment */
 			prog += 2;
 			do { /* find end of comment */
-				while (*prog != '*') prog++;
+				while (*prog != '*' && *prog != '\0') prog++;
+				if (*prog == '\0') {
+					prog--;
+					break;
+				}
 				prog++;
 			} while (*prog != '/');
 			prog++;
