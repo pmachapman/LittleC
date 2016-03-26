@@ -25,7 +25,7 @@ enum tok_types {
 /* add additional C keyword tokens here */
 enum tokens {
 	ARG, CHAR, INT, IF, ELSE, FOR, DO, WHILE,
-	SWITCH, RETURN, EOL, FINISHED, END
+	SWITCH, RETURN, CONTINUE, EOL, FINISHED, END
 };
 
 /* add additional double operators here (such as ->) */
@@ -81,6 +81,7 @@ struct commands { /* keyword lookup table */
   "char", CHAR,
   "int", INT,
   "return", RETURN,
+  "continue", CONTINUE,
   "end", END,
   "", END  /* mark end of table */
 };
@@ -188,6 +189,8 @@ void interp_block(void)
 				break;
 			case RETURN:  /* return from function call */
 				func_ret();
+				return;
+			case CONTINUE:  /* continue loop execution */
 				return;
 			case IF:      /* process an if statement */
 				exec_if();

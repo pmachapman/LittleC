@@ -23,7 +23,7 @@ enum tok_types {
 
 enum tokens {
 	ARG, CHAR, INT, IF, ELSE, FOR, DO, WHILE,
-	SWITCH, RETURN, EOL, FINISHED, END
+	SWITCH, RETURN, CONTINUE, EOL, FINISHED, END
 };
 
 enum double_ops { LT = 1, LE, GT, GE, EQ, NE };
