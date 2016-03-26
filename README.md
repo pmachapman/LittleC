@@ -13,7 +13,7 @@ The following features are implemented:
  * Integer and character constants
  * String constants (limited implementation)
  * The **return** statement, both with and without a value
- * The **break**, **continue**, and **end** statements
+ * The **continue** and **end** statements
  * A limited number of standard library functions
  * These operators: +, –, *, /, %, <, >, <=, >=, ==, !=, unary –, and unary +
  * Functions returning integers
@@ -83,6 +83,8 @@ main ()
   /*...*/
 }
 ```
+
+All **return** statements must not be inside a loop
 
 ## Library Functions
 
