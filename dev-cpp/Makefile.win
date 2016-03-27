@@ -1,0 +1,36 @@
+# Project: LittleC
+# Makefile created by Dev-C++ 4.9.9.2
+
+CPP  = g++.exe
+CC   = gcc.exe
+WINDRES = windres.exe
+RES  = 
+OBJ  = ../src/parser.o ../src/lclib.o ../src/littlec.o $(RES)
+LINKOBJ  = ../src/parser.o ../src/lclib.o ../src/littlec.o $(RES)
+LIBS =  -L"C:/Dev-Cpp/lib"  
+INCS =  -I"C:/Dev-Cpp/include" 
+CXXINCS =  -I"C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include"  -I"C:/Dev-Cpp/include/c++/3.4.2/backward"  -I"C:/Dev-Cpp/include/c++/3.4.2/mingw32"  -I"C:/Dev-Cpp/include/c++/3.4.2"  -I"C:/Dev-Cpp/include" 
+BIN  = LittleC.exe
+CXXFLAGS = $(CXXINCS)  
+CFLAGS = $(INCS)  
+RM = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before LittleC.exe all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CC) $(LINKOBJ) -o "LittleC.exe" $(LIBS)
+
+../src/parser.o: ../src/parser.c
+	$(CC) -c ../src/parser.c -o ../src/parser.o $(CFLAGS)
+
+../src/lclib.o: ../src/lclib.c
+	$(CC) -c ../src/lclib.c -o ../src/lclib.o $(CFLAGS)
+
+../src/littlec.o: ../src/littlec.c
+	$(CC) -c ../src/littlec.c -o ../src/littlec.o $(CFLAGS)

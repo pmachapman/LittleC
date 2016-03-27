@@ -120,3 +120,4 @@ int getnum(void)
 	prog++;  /* advance to end of line */
 	return atoi(s);
 }
+
