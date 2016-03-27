@@ -84,8 +84,6 @@ main ()
 }
 ```
 
-All **return** statements must not be inside a loop
-
 ## Library Functions
 
 The following library functions are implemented:

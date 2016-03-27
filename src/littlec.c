@@ -95,6 +95,7 @@ int gvar_index; /* index into global variable table */
 int lvartos; /* index into local variable stack */
 
 int ret_value; /* function return value */
+int ret_occurring; /* function return is occurring */
 
 void print(void), prescan(void);
 void decl_global(void), call(void), putback(void);
@@ -189,24 +190,36 @@ void interp_block(void)
 				break;
 			case RETURN:  /* return from function call */
 				func_ret();
+				ret_occurring = 1;
 				return;
 			case CONTINUE:  /* continue loop execution */
 				return;
 			case IF:      /* process an if statement */
 				exec_if();
+				if (ret_occurring > 0) {
+					return;
+				}
 				break;
 			case ELSE:    /* process an else statement */
-				find_eob(); /* find end of else block
-							   and continue execution */
+				find_eob(); /* find end of else block and continue execution */
 				break;
 			case WHILE:   /* process a while loop */
 				exec_while();
+				if (ret_occurring > 0) {
+					return;
+				}
 				break;
 			case DO:      /* process a do-while loop */
 				exec_do();
+				if (ret_occurring > 0) {
+					return;
+				}
 				break;
 			case FOR:     /* process a for loop */
 				exec_for();
+				if (ret_occurring > 0) {
+					return;
+				}
 				break;
 			case END:
 				exit(0);
@@ -353,9 +366,10 @@ void call(void)
 		temp = prog; /* save return location */
 		func_push(lvartemp);  /* save local var stack index */
 		prog = loc;  /* reset prog to start of function */
-		get_params(); /* load the function's parameters with
-						 the values of the arguments */
+		ret_occurring = 0; /* P the return occurring variable */
+		get_params(); /* load the function's parameters with the values of the arguments */
 		interp_block(); /* interpret the function */
+		ret_occurring = 0; /* Clear the return occurring variable */
 		prog = temp; /* reset the program pointer */
 		lvartos = func_pop(); /* reset the local var stack */
 	}
@@ -525,8 +539,7 @@ void exec_if(void)
 
 	if (cond) { /* is true so process target of IF */
 		interp_block();
-	}
-	else { /* otherwise skip around IF block and
+	} else { /* otherwise skip around IF block and
 			  process the ELSE, if present */
 		find_eob(); /* find start of next line */
 		get_token();
@@ -569,6 +582,9 @@ void exec_do(void)
 
 	get_token(); /* get start of loop */
 	interp_block(); /* interpret loop */
+	if (ret_occurring > 0) {
+		return;
+	}
 	get_token();
 	if (tok != WHILE) sntx_err(WHILE_EXPECTED);
 	eval_exp(&cond); /* check the loop condition */
@@ -616,8 +632,12 @@ void exec_for(void)
 			if (*token == ')') brace--;
 		}
 
-		if (cond) interp_block();  /* if true, interpret */
-		else {  /* otherwise, skip around loop */
+		if (cond) {
+			interp_block();  /* if true, interpret */
+			if (ret_occurring > 0) {
+				return;
+			}
+		} else {  /* otherwise, skip around loop */
 			find_eob();
 			return;
 		}
