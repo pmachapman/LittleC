@@ -73,17 +73,17 @@ struct commands { /* keyword lookup table */
 	char command[20];
 	char tok;
 } table[] = { /* Commands must be entered lowercase */
-  "if", IF, /* in this table. */
-  "else", ELSE,
-  "for", FOR,
-  "do", DO,
-  "while", WHILE,
-  "char", CHAR,
-  "int", INT,
-  "return", RETURN,
-  "continue", CONTINUE,
-  "end", END,
-  "", END  /* mark end of table */
+	{ "if", IF }, /* in this table. */
+	{ "else", ELSE },
+	{ "for", FOR },
+	{ "do", DO },
+	{ "while", WHILE },
+	{ "char", CHAR },
+	{ "int", INT },
+	{ "return", RETURN },
+	{ "continue", CONTINUE },
+	{ "end", END },
+	{ "", END } /* mark end of table */
 };
 
 char token[80];
