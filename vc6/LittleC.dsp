@@ -86,15 +86,15 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=.\lclib.c
+SOURCE=..\src\lclib.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\littlec.c
+SOURCE=..\src\littlec.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\parser.c
+SOURCE=..\src\parser.c
 # End Source File
 # End Group
 # Begin Group "Header Files"

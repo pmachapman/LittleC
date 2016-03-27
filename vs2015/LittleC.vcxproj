@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lclib.c" />
-    <ClCompile Include="littlec.c" />
-    <ClCompile Include="parser.c" />
+    <ClCompile Include="..\src\lclib.c" />
+    <ClCompile Include="..\src\littlec.c" />
+    <ClCompile Include="..\src\arser.c" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0F6F0D33-9A19-4880-9121-1B8DE6DF38FE}</ProjectGuid>

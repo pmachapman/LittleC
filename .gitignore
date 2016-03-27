@@ -50,6 +50,7 @@ ipch/
 # Build results
 [Dd]ebug/
 [Rr]elease/
+obj/
 
 # Linux Binary
 littlec

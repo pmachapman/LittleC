@@ -15,13 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lclib.c">
+    <ClCompile Include="..\src\lclib.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="littlec.c">
+    <ClCompile Include="..\src\littlec.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="parser.c">
+    <ClCompile Include="..\src\parser.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
