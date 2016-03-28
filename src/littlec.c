@@ -25,7 +25,7 @@ enum tok_types {
 /* add additional C keyword tokens here */
 enum tokens {
 	ARG, CHAR, INT, IF, ELSE, FOR, DO, WHILE,
-	SWITCH, RETURN, CONTINUE, EOL, FINISHED, END
+	SWITCH, RETURN, CONTINUE, BREAK, EOL, FINISHED, END
 };
 
 /* add additional double operators here (such as ->) */
@@ -82,6 +82,7 @@ struct commands { /* keyword lookup table */
 	{ "int", INT },
 	{ "return", RETURN },
 	{ "continue", CONTINUE },
+	{ "break", BREAK },
 	{ "end", END },
 	{ "", END } /* mark end of table */
 };
@@ -96,6 +97,7 @@ int lvartos; /* index into local variable stack */
 
 int ret_value; /* function return value */
 int ret_occurring; /* function return is occurring */
+int break_occurring; /* loop break is occurring */
 
 void print(void), prescan(void);
 void decl_global(void), call(void), putback(void);
@@ -136,6 +138,7 @@ int main(int argc, char *argv[])
 
 	lvartos = 0;     /* initialize local variable stack index */
 	functos = 0;     /* initialize the CALL stack index */
+	break_occurring = 0; /* initialize the break occurring flag */
 
 	/* setup call to main() */
 	prog = find_func("main"); /* find program starting point */
@@ -194,9 +197,12 @@ void interp_block(void)
 				return;
 			case CONTINUE:  /* continue loop execution */
 				return;
+			case BREAK:  /* break loop execution */
+				break_occurring = 1;
+				return;
 			case IF:      /* process an if statement */
 				exec_if();
-				if (ret_occurring > 0) {
+				if (ret_occurring > 0 || break_occurring > 0) {
 					return;
 				}
 				break;
@@ -559,12 +565,18 @@ void exec_while(void)
 	int cond;
 	char *temp;
 
+	break_occurring = 0; /* clear the break flag */
 	putback();
 	temp = prog;  /* save location of top of while loop */
 	get_token();
 	eval_exp(&cond);  /* check the conditional expression */
-	if (cond) interp_block();  /* if true, interpret */
-	else {  /* otherwise, skip around loop */
+	if (cond) {
+		interp_block();  /* if true, interpret */
+		if (break_occurring > 0) {
+			break_occurring = 0;
+			return;
+		}
+	} else {  /* otherwise, skip around loop */
 		find_eob();
 		return;
 	}
@@ -579,10 +591,14 @@ void exec_do(void)
 
 	putback();
 	temp = prog;  /* save location of top of do loop */
+	break_occurring = 0; /* clear the break flag */
 
 	get_token(); /* get start of loop */
 	interp_block(); /* interpret loop */
 	if (ret_occurring > 0) {
+		return;
+	} else if (break_occurring > 0) {
+		break_occurring = 0;
 		return;
 	}
 	get_token();
@@ -613,6 +629,7 @@ void exec_for(void)
 	char *temp, *temp2;
 	int brace;
 
+	break_occurring = 0; /* clear the break flag */
 	get_token();
 	eval_exp(&cond);  /* initialization expression */
 	if (*token != ';') sntx_err(SEMI_EXPECTED);
@@ -635,6 +652,9 @@ void exec_for(void)
 		if (cond) {
 			interp_block();  /* if true, interpret */
 			if (ret_occurring > 0) {
+				return;
+			} else if (break_occurring > 0) {
+				break_occurring = 0;
 				return;
 			}
 		} else {  /* otherwise, skip around loop */
