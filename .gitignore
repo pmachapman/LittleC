@@ -60,3 +60,7 @@ littlec
 
 # Dev-C++ Files
 *.layout
+
+# Borland C++ Files
+*.~*
+*.tds
