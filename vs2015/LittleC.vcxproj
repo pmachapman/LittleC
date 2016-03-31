@@ -21,7 +21,7 @@
   <ItemGroup>
     <ClCompile Include="..\src\lclib.c" />
     <ClCompile Include="..\src\littlec.c" />
-    <ClCompile Include="..\src\arser.c" />
+    <ClCompile Include="..\src\parser.c" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0F6F0D33-9A19-4880-9121-1B8DE6DF38FE}</ProjectGuid>
@@ -104,10 +104,11 @@
     <ClCompile>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>
+      </SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
