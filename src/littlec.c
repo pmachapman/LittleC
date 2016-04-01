@@ -237,7 +237,7 @@ void interp_block(void)
 int load_program(char *p, char *fname)
 {
 	FILE *fp;
-	int i = 0;
+	int i;
 
 	if ((fp = fopen(fname, "rb")) == NULL) return 0;
 
