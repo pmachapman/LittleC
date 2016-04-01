@@ -1,6 +1,29 @@
 # Little C
 The Little C Interpreter from Herbert Schildt's C: The Complete Reference (4th Ed.)
 
+## Table of Contents
+
+ * [Project Structure] (#project-structure)
+ * [Specifications] (#specifications)
+ * [Restrictions] (#restrictions)
+ * [Library Functions] (#library-functions)
+ * [Example Programs] (#example-programs)
+
+## Project Structure
+
+The files for this project are in the following directories:
+
+    .
+    ├── bcb3                  # Borland C++ Builder 3.0 Project Files
+    ├── bcc55                 # Borland C++ Compiler 5.5. Makefile
+    ├── dev-cpp               # Dev-C++ 4.9 Project Files
+    ├── gcc                   # Gnu C Compiler Makefile
+    ├── src                   # Project Source Code
+    ├── vc6                   # Visual C++ 6.0 Project File
+    ├── vs2015                # Visual Studio 2015 Project File
+    ├── LICENSE.md
+    └── README.md
+
 ## Specifications
 The following features are implemented:
 
