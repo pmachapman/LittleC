@@ -64,3 +64,10 @@ littlec
 # Borland C++ Files
 *.~*
 *.tds
+
+# Open Watcom Files
+*.lk1
+*.map
+*.mk
+*.mk1
+*.sym

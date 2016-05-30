@@ -21,6 +21,7 @@ The files for this project are in the following directories:
     ├── src                   # Project Source Code
     ├── vc6                   # Visual C++ 6.0 Project File
     ├── vs2015                # Visual Studio 2015 Project File
+    ├── watcom                # Open Watcom 1.9 Project File
     ├── LICENSE.md
     └── README.md
 
