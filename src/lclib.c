@@ -41,11 +41,13 @@ void sntx_err(int error), eval_exp(int *result);
 void putback(void);
 
 /* Get a character from console. (Use getchar() if
-   your compiler does not support _getche().) */
+   your compiler does not support       _getche().) */
 int call_getche()
 {
 	char ch;
-#if defined(_MSC_VER)
+#if defined(_QC)
+	ch = (char)getche();
+#elif defined(_MSC_VER)
 	ch = (char)_getche();
 #else
 	ch = (char)getchar();

@@ -71,3 +71,9 @@ littlec
 *.mk
 *.mk1
 *.sym
+
+# Quick C Files
+qc.ini
+*.err
+*.ilk
+*.mdt
