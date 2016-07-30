@@ -545,8 +545,9 @@ void exec_if(void)
 
 	if (cond) { /* is true so process target of IF */
 		interp_block();
-	} else { /* otherwise skip around IF block and
-			  process the ELSE, if present */
+	}
+	else { /* otherwise skip around IF block and
+		   process the ELSE, if present */
 		find_eob(); /* find start of next line */
 		get_token();
 
@@ -576,7 +577,8 @@ void exec_while(void)
 			break_occurring = 0;
 			return;
 		}
-	} else {  /* otherwise, skip around loop */
+	}
+	else {  /* otherwise, skip around loop */
 		find_eob();
 		return;
 	}
@@ -597,7 +599,8 @@ void exec_do(void)
 	interp_block(); /* interpret loop */
 	if (ret_occurring > 0) {
 		return;
-	} else if (break_occurring > 0) {
+	}
+	else if (break_occurring > 0) {
 		break_occurring = 0;
 		return;
 	}
@@ -653,11 +656,13 @@ void exec_for(void)
 			interp_block();  /* if true, interpret */
 			if (ret_occurring > 0) {
 				return;
-			} else if (break_occurring > 0) {
+			}
+			else if (break_occurring > 0) {
 				break_occurring = 0;
 				return;
 			}
-		} else {  /* otherwise, skip around loop */
+		}
+		else {  /* otherwise, skip around loop */
 			find_eob();
 			return;
 		}

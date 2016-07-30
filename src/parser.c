@@ -348,9 +348,11 @@ void sntx_err(int error)
 			if (*p != '\n') {
 				p--;
 			}
-		} else if (*p == '\n') {
+		}
+		else if (*p == '\n') {
 			linecount++;
-		} else if (*p == '\0') {
+		}
+		else if (*p == '\0') {
 			linecount++;
 		}
 	}
