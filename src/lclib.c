@@ -42,7 +42,7 @@ void putback(void);
 
 /* Get a character from console. (Use getchar() if
    your compiler does not support       _getche().) */
-int call_getche()
+int call_getche(void)
 {
 	char ch;
 #if defined(_QC)
@@ -58,7 +58,7 @@ int call_getche()
 }
 
 /* Put a character to the display. */
-int call_putch()
+int call_putch(void)
 {
 	int value;
 
@@ -122,4 +122,3 @@ int getnum(void)
 	prog++;  /* advance to end of line */
 	return atoi(s);
 }
-

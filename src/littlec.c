@@ -1,5 +1,7 @@
 /* A Little C interpreter. */
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <stdio.h>
 #include <setjmp.h>
 #include <math.h>
@@ -451,28 +453,43 @@ void func_ret(void)
 /* Push a local variable. */
 void local_push(struct var_type i)
 {
-	if (lvartos > NUM_LOCAL_VARS)
+	if (lvartos >= NUM_LOCAL_VARS) {
 		sntx_err(TOO_MANY_LVARS);
-
-	local_var_stack[lvartos] = i;
-	lvartos++;
+	}
+	else {
+		local_var_stack[lvartos] = i;
+		lvartos++;
+	}
 }
 
 /* Pop index into local variable stack. */
 int func_pop(void)
 {
+	int index = 0;
 	functos--;
-	if (functos < 0) sntx_err(RET_NOCALL);
-	return call_stack[functos];
+	if (functos < 0) {
+		sntx_err(RET_NOCALL);
+	}
+	else if (functos >= NUM_FUNC) {
+		sntx_err(NEST_FUNC);
+	}
+	else {
+		index = call_stack[functos];
+	}
+
+	return index;
 }
 
 /* Push index of local variable stack. */
 void func_push(int i)
 {
-	if (functos > NUM_FUNC)
+	if (functos >= NUM_FUNC) {
 		sntx_err(NEST_FUNC);
-	call_stack[functos] = i;
-	functos++;
+	}
+	else {
+		call_stack[functos] = i;
+		functos++;
+	}
 }
 
 /* Assign a value to a variable. */

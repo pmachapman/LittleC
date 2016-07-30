@@ -1,6 +1,9 @@
 /* Recursive descent parser for integer expressions
    which may include variables and function calls.
 */
+
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <setjmp.h>
 #include <math.h>
 #include <ctype.h>
@@ -78,7 +81,7 @@ int call_puts(void), print(void), getnum(void);
 
 struct intern_func_type {
 	char *f_name; /* function name */
-	int(*p)();   /* pointer to the function */
+	int(*p)(void);   /* pointer to the function */
 } intern_func[] = {
 	{ "getche", call_getche },
 	{ "putch", call_putch },
@@ -503,13 +506,13 @@ char get_token(void)
 		return (token_type = STRING);
 	}
 
-	if (isdigit(*prog)) { /* number */
+	if (isdigit((int)*prog)) { /* number */
 		while (!isdelim(*prog)) *temp++ = *prog++;
 		*temp = '\0';
 		return (token_type = NUMBER);
 	}
 
-	if (isalpha(*prog)) { /* var or command */
+	if (isalpha((int)*prog)) { /* var or command */
 		while (!isdelim(*prog)) *temp++ = *prog++;
 		token_type = TEMP;
 	}
@@ -580,4 +583,3 @@ int iswhite(char c)
 	if (c == ' ' || c == '\t') return 1;
 	else return 0;
 }
-
