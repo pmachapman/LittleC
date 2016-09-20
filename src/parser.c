@@ -260,7 +260,7 @@ void eval_exp4(int *value)
 /* Process parenthesized expression. */
 void eval_exp5(int *value)
 {
-	if ((*token == '(')) {
+	if (*token == '(') {
 		get_token();
 		eval_exp0(value);   /* get subexpression */
 		if (*token != ')') sntx_err(PAREN_EXPECTED);
