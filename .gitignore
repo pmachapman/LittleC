@@ -78,3 +78,6 @@ qc.ini
 *.err
 *.ilk
 *.mdt
+
+# Visual Studio code
+.vscode
