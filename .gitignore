@@ -81,3 +81,7 @@ qc.ini
 
 # Visual Studio code
 .vscode
+
+# Xcode
+.DS_Store
+xcuserdata
