@@ -20,6 +20,7 @@ The files for this project are in the following directories:
     ├── gcc                   # Gnu C Compiler Makefile
     ├── qc25                  # Microsoft Quick C 2.5 Makefile
     ├── src                   # Project Source Code
+    ├── vc152                 # Visual C++ 1.52 Project File
     ├── vc6                   # Visual C++ 6.0 Project File
     ├── vs2015                # Visual Studio 2015 Project File
     ├── watcom                # Open Watcom 1.9 Project File

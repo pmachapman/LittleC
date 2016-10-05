@@ -85,3 +85,8 @@ qc.ini
 # Xcode
 .DS_Store
 xcuserdata
+
+# Visual C++ 1.52 Files
+*.bsc
+*.pdb
+*.sbr
