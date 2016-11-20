@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -O -Wall
+CFLAGS = -O -Wall -Wextra
 
 all:	littlec
 

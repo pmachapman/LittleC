@@ -281,14 +281,13 @@ void atom(int *value)
 		if (i != -1) {  /* call "standard library" function */
 			*value = (*intern_func[i].p)();
 		}
-		else
-			if (find_func(token)) { /* call user-defined function */
-				call();
-				*value = ret_value;
-			}
-			else *value = find_var(token); /* get var's value */
-			get_token();
-			return;
+		else if (find_func(token)) { /* call user-defined function */
+			call();
+			*value = ret_value;
+		}
+		else *value = find_var(token); /* get var's value */
+		get_token();
+		return;
 	case NUMBER: /* is numeric constant */
 		*value = atoi(token);
 		get_token();
