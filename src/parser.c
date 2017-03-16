@@ -105,7 +105,12 @@ void eval_exp3(int *value);
 void eval_exp4(int *value);
 void eval_exp5(int *value);
 void atom(int *value);
+#if defined(_MSC_VER)
+__declspec(noreturn) void sntx_err(int error);
+#else
 void sntx_err(int error) __attribute((noreturn));
+#endif
+
 void putback(void);
 void assign_var(char *var_name, int value);
 int isdelim(char c), iswhite(char c);
