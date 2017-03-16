@@ -54,14 +54,14 @@ extern jmp_buf e_buf; /* hold environment for longjmp() */
    associated with global variables.
 */
 extern struct var_type {
-	char var_name[32];
+	char var_name[ID_LEN];
 	int v_type;
 	int value;
 }  global_vars[NUM_GLOBAL_VARS];
 
 /*  This is the function call stack. */
 extern struct func_type {
-	char func_name[32];
+	char func_name[ID_LEN];
 	int ret_type;
 	char *loc;  /* location of function entry point in file */
 } func_stack[NUM_FUNC];

@@ -260,7 +260,7 @@ int load_program(char *p, char *fname)
 void prescan(void)
 {
 	char *p, *tp;
-	char temp[32];
+	char temp[ID_LEN + 1];
 	int datatype;
 	int brace = 0;  /* When 0, this var tells us that
 					   current source position is outside
