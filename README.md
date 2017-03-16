@@ -3,11 +3,11 @@ The Little C Interpreter from Herbert Schildt's C: The Complete Reference (4th E
 
 ## Table of Contents
 
- * [Project Structure] (#project-structure)
- * [Specifications] (#specifications)
- * [Restrictions] (#restrictions)
- * [Library Functions] (#library-functions)
- * [Example Programs] (#example-programs)
+ * [Project Structure](#project-structure)
+ * [Specifications](#specifications)
+ * [Restrictions](#restrictions)
+ * [Library Functions](#library-functions)
+ * [Example Programs](#example-programs)
 
 ## Project Structure
 
