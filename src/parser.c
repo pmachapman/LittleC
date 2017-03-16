@@ -14,7 +14,7 @@
 #define NUM_FUNC        100
 #define NUM_GLOBAL_VARS 100
 #define NUM_LOCAL_VARS  200
-#define ID_LEN          31
+#define ID_LEN          32
 #define FUNC_CALLS      31
 #define PROG_SIZE       10000
 #define FOR_NEST        31
