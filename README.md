@@ -16,6 +16,7 @@ The files for this project are in the following directories:
     .
     ├── bcb3                  # Borland C++ Builder 3.0 Project Files
     ├── bcc55                 # Borland C++ Compiler 5.5 Makefile
+    ├── clang                 # Clang C Compiler Makefile
     ├── dev-cpp               # Dev-C++ 4.9 Project Files
     ├── gcc                   # Gnu C Compiler Makefile
     ├── qc25                  # Microsoft Quick C 2.5 Makefile
