@@ -107,8 +107,10 @@ void eval_exp5(int *value);
 void atom(int *value);
 #if defined(_MSC_VER)
 __declspec(noreturn) void sntx_err(int error);
-#else
+#elif __GNUC__
 void sntx_err(int error) __attribute((noreturn));
+#else
+void sntx_err(int error);
 #endif
 
 void putback(void);

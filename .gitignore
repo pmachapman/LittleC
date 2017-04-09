@@ -65,6 +65,7 @@ littlec
 # Borland C++ Files
 *.~*
 *.tds
+turboc.$ln
 
 # Open Watcom Files
 *.lk1

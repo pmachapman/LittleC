@@ -1,7 +1,5 @@
 CC = bcc32
-LIBS = -L"C:\Borland\BCC55\Lib"
-INCS = -I"C:\Borland\BCC55\Include"
-CFLAGS = -P -O2 -w $(LIBS) $(INCS)
+CFLAGS = -P -O2 -w
 
 all:
 		$(CC) $(CFLAGS) ../src/littlec.c ../src/parser.c ../src/lclib.c
@@ -9,3 +7,4 @@ all:
 clean:
 		del *.obj
 		del littlec.exe
+		del littlec.tds
