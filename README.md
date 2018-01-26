@@ -26,6 +26,7 @@ The files for this project are in the following directories:
     ├── vs2015                # Visual Studio 2015 Project File
     ├── vs2017                # Visual Studio 2017 Project File
     ├── watcom                # Open Watcom 1.9 Project File
+    ├── xcode                 # Apple Xcode Project File
     ├── LICENSE.md
     └── README.md
 
