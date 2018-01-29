@@ -80,7 +80,7 @@ qc.ini
 *.ilk
 *.mdt
 
-# Visual Studio code
+# Visual Studio Code
 .vscode
 
 # Xcode
@@ -91,3 +91,7 @@ xcuserdata
 *.bsc
 *.pdb
 *.sbr
+
+# Visual Studio 2005
+*.suo
+*.user

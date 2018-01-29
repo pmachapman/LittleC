@@ -23,6 +23,11 @@ The files for this project are in the following directories:
     ├── src                   # Project Source Code
     ├── vc152                 # Visual C++ 1.52 Project File
     ├── vc6                   # Visual C++ 6.0 Project File
+    ├── vs2002                # Visual Studio .NET Project File
+    ├── vs2003                # Visual Studio .NET 2003 Project File
+    ├── vs2005                # Visual Studio 2005 Project File
+    ├── vs2008                # Visual Studio 2008 Project File
+    ├── vs2010                # Visual Studio 2010 Project File
     ├── vs2015                # Visual Studio 2015 Project File
     ├── vs2017                # Visual Studio 2017 Project File
     ├── watcom                # Open Watcom 1.9 Project File
