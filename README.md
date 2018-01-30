@@ -52,6 +52,7 @@ The following features are implemented:
  * The **break**, **continue** and **end** statements
  * A limited number of standard library functions
  * These operators: +, –, *, /, %, <, >, <=, >=, ==, !=, unary –, and unary +
+ * These escaped characters: \a, \b, \f, \n, \r, \t, \v, \', \", and \\\\
  * Functions returning integers
  * /* ... */-style comments
  * C++ style comments
@@ -320,7 +321,7 @@ int main()
   char ch;
 
   /* the while */
-  puts("Enter a number: ");
+  puts("\aEnter a number: ");
   a = getnum();
   while(a) {
     print(a);

@@ -121,6 +121,7 @@ int internal_func(char *s);
 int is_var(char *s);
 char *find_func(char *name), look_up(char *s), get_token(void);
 void call(void);
+static void str_replace(char *line, const char *search, const char *replace);
 
 /* Entry point into parser. */
 void eval_exp(int *value)
@@ -507,9 +508,19 @@ char get_token(void)
 
 	if (*prog == '"') { /* quoted string */
 		prog++;
-		while (*prog != '"' && *prog != '\r' && *prog != '\n' && *prog != '\0') *temp++ = *prog++;
+		while ((*prog != '"' && *prog != '\r' && *prog != '\n' && *prog != '\0') || (*prog == '"' && *(prog - 1) == '\\')) *temp++ = *prog++;
 		if (*prog == '\r' || *prog == '\n' || *prog == '\0') sntx_err(SYNTAX);
 		prog++; *temp = '\0';
+		str_replace(token, "\\a", "\a");
+		str_replace(token, "\\b", "\b");
+		str_replace(token, "\\f", "\f");
+		str_replace(token, "\\n", "\n");
+		str_replace(token, "\\r", "\r");
+		str_replace(token, "\\t", "\t");
+		str_replace(token, "\\v", "\v");
+		str_replace(token, "\\\\", "\\");
+		str_replace(token, "\\\'", "\'");
+		str_replace(token, "\\\"", "\"");
 		return (token_type = STRING);
 	}
 
@@ -589,4 +600,19 @@ int iswhite(char c)
 {
 	if (c == ' ' || c == '\t') return 1;
 	else return 0;
+}
+
+/* An in-place modification find and replace of the string.
+   Assumes the buffer pointed to by line is large enough to hold the resulting string.*/
+static void str_replace(char *line, const char *search, const char *replace)
+{
+	char *sp;
+	while ((sp = strstr(line, search)) != NULL) {
+		int search_len = strlen(search);
+		int replace_len = strlen(replace);
+		int tail_len = strlen(sp+search_len);
+
+		memmove(sp + replace_len,sp+search_len,tail_len+1);
+		memcpy(sp, replace, replace_len);
+	}
 }
