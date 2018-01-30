@@ -1,4 +1,4 @@
-# Little C
+﻿# Little C
 The Little C Interpreter from Herbert Schildt's C: The Complete Reference (4th Ed.)
 
 ## Table of Contents
@@ -28,6 +28,8 @@ The files for this project are in the following directories:
     ├── vs2005                # Visual Studio 2005 Project File
     ├── vs2008                # Visual Studio 2008 Project File
     ├── vs2010                # Visual Studio 2010 Project File
+    ├── vs2012                # Visual Studio 2012 Project File
+    ├── vs2013                # Visual Studio 2013 Project File
     ├── vs2015                # Visual Studio 2015 Project File
     ├── vs2017                # Visual Studio 2017 Project File
     ├── watcom                # Open Watcom 1.9 Project File
