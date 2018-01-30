@@ -105,7 +105,7 @@ void eval_exp3(int *value);
 void eval_exp4(int *value);
 void eval_exp5(int *value);
 void atom(int *value);
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && _MSC_VER >= 1200
 __declspec(noreturn) void sntx_err(int error);
 #elif __GNUC__
 void sntx_err(int error) __attribute((noreturn));
