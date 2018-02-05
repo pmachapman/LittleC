@@ -608,11 +608,11 @@ static void str_replace(char *line, const char *search, const char *replace)
 {
 	char *sp;
 	while ((sp = strstr(line, search)) != NULL) {
-		int search_len = strlen(search);
-		int replace_len = strlen(replace);
-		int tail_len = strlen(sp+search_len);
+		int search_len = (int)strlen(search);
+		int replace_len = (int)strlen(replace);
+		int tail_len = (int)strlen(sp + search_len);
 
-		memmove(sp + replace_len,sp+search_len,tail_len+1);
+		memmove(sp + replace_len, sp + search_len, tail_len + 1);
 		memcpy(sp, replace, replace_len);
 	}
 }
