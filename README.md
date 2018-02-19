@@ -24,6 +24,7 @@ The files for this project are in the following directories:
     ├── vc152                 # Visual C++ 1.52 Project File
     ├── vc2                   # Visual C++ 2.0 Project File
     ├── vc42                  # Visual C++ 4.2 Project File
+    ├── vc5                   # Visual C++ 5.0 Project File
     ├── vc6                   # Visual C++ 6.0 Project File
     ├── vs2002                # Visual Studio .NET Project File
     ├── vs2003                # Visual Studio .NET 2003 Project File

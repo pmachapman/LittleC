@@ -95,3 +95,6 @@ xcuserdata
 # Visual Studio 2005
 *.suo
 *.user
+
+Visual C++ 5.0 Files
+*.idb
