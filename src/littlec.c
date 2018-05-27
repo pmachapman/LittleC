@@ -1,7 +1,5 @@
 /* A Little C interpreter. */
 
-#define _CRT_SECURE_NO_WARNINGS
-
 #include <stdio.h>
 #include <setjmp.h>
 #include <math.h>
@@ -18,6 +16,12 @@
 #define NUM_PARAMS      31
 #define PROG_SIZE       10000
 #define LOOP_NEST       31
+
+// Secure function compatibility
+#if !defined(_MSC_VER) || _MSC_VER < 1400
+#define strcpy_s(dest, count, source) strncpy( (dest), (source), (count) )
+#define fopen_s(pFile,filename,mode) ((*(pFile))=fopen((filename),(mode)))==NULL
+#endif
 
 enum tok_types {
 	DELIMITER, IDENTIFIER, NUMBER, KEYWORD,
@@ -151,7 +155,7 @@ int main(int argc, char *argv[])
 	}
 
 	prog--; /* back up to opening ( */
-	strcpy(token, "main");
+	strcpy_s(token, 80, "main");
 	call(); /* call main() to start interpreting */
 
 	return 0;
@@ -241,7 +245,7 @@ int load_program(char *p, char *fname)
 	FILE *fp;
 	int i;
 
-	if ((fp = fopen(fname, "rb")) == NULL) return 0;
+	if (fopen_s(&fp, fname, "rb") != 0 || fp == NULL) return 0;
 
 	i = 0;
 	do {
@@ -282,7 +286,7 @@ void prescan(void)
 			datatype = tok; /* save data type */
 			get_token();
 			if (token_type == IDENTIFIER) {
-				strcpy(temp, token);
+				strcpy_s(temp, ID_LEN + 1, token);
 				get_token();
 				if (*token != '(') { /* must be global var */
 					prog = tp; /* return to start of declaration */
@@ -291,7 +295,7 @@ void prescan(void)
 				else if (*token == '(') {  /* must be a function */
 					func_table[func_index].loc = prog;
 					func_table[func_index].ret_type = datatype;
-					strcpy(func_table[func_index].func_name, temp);
+					strcpy_s(func_table[func_index].func_name, ID_LEN, temp);
 					func_index++;
 					while (*prog != ')') prog++;
 					prog++;
@@ -333,7 +337,7 @@ void decl_global(void)
 		global_vars[gvar_index].v_type = vartype;
 		global_vars[gvar_index].value = 0;  /* init to 0 */
 		get_token();  /* get name */
-		strcpy(global_vars[gvar_index].var_name, token);
+		strcpy_s(global_vars[gvar_index].var_name, ID_LEN, token);
 		get_token();
 		gvar_index++;
 	} while (*token == ',');
@@ -352,7 +356,7 @@ void decl_local(void)
 
 	do { /* process comma-separated list */
 		get_token(); /* get var name */
-		strcpy(i.var_name, token);
+		strcpy_s(i.var_name, ID_LEN, token);
 		local_push(i);
 		get_token();
 	} while (*token == ',');
@@ -429,7 +433,7 @@ void get_params(void)
 
 			/* link parameter name with argument already on
 			   local var stack */
-			strcpy(p->var_name, token);
+			strcpy_s(p->var_name, ID_LEN, token);
 			get_token();
 			i--;
 		}

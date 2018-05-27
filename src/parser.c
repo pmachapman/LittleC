@@ -2,8 +2,6 @@
    which may include variables and function calls.
 */
 
-#define _CRT_SECURE_NO_WARNINGS
-
 #include <setjmp.h>
 #include <math.h>
 #include <ctype.h>
@@ -18,6 +16,11 @@
 #define FUNC_CALLS      31
 #define PROG_SIZE       10000
 #define FOR_NEST        31
+
+// Secure function compatibility
+#if !defined(_MSC_VER) || _MSC_VER < 1400
+#define strcpy_s(dest, count, source) strncpy( (dest), (source), (count) )
+#endif
 
 enum tok_types {
 	DELIMITER, IDENTIFIER, NUMBER, KEYWORD,
@@ -148,7 +151,7 @@ void eval_exp0(int *value)
 
 	if (token_type == IDENTIFIER) {
 		if (is_var(token)) {  /* if a var, see if assignment */
-			strcpy(temp, token);
+			strcpy_s(temp, ID_LEN, token);
 			temp_tok = token_type;
 			get_token();
 			if (*token == '=') {  /* is an assignment */
@@ -159,7 +162,7 @@ void eval_exp0(int *value)
 			}
 			else {  /* not an assignment */
 				putback();  /* restore original token */
-				strcpy(token, temp);
+				strcpy_s(token, 80, temp);
 				token_type = temp_tok;
 			}
 		}
