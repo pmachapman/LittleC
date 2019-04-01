@@ -20,7 +20,7 @@
 // Secure function compatibility
 #if !defined(_MSC_VER) || _MSC_VER < 1400
 #define strcpy_s(dest, count, source) strncpy( (dest), (source), (count) )
-#define fopen_s(pFile,filename,mode) ((*(pFile))=fopen((filename),(mode)))==NULL
+#define fopen_s(pFile,filename,mode) (((*(pFile))=fopen((filename),(mode)))==NULL)
 #endif
 
 enum tok_types {
