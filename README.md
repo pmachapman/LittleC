@@ -1,13 +1,13 @@
-﻿# Little C
+﻿# Little C <!-- omit from toc -->
 The Little C Interpreter from Herbert Schildt's C: The Complete Reference (4th Ed.)
 
-## Table of Contents
+## Table of Contents <!-- omit from toc -->
 
- * [Project Structure](#project-structure)
- * [Specifications](#specifications)
- * [Restrictions](#restrictions)
- * [Library Functions](#library-functions)
- * [Example Programs](#example-programs)
+- [Project Structure](#project-structure)
+- [Specifications](#specifications)
+- [Restrictions](#restrictions)
+- [Library Functions](#library-functions)
+- [Example Programs](#example-programs)
 
 ## Project Structure
 
@@ -36,6 +36,7 @@ The files for this project are in the following directories:
     ├── vs2015                # Visual Studio 2015 Project File
     ├── vs2017                # Visual Studio 2017 Project File
     ├── vs2019                # Visual Studio 2019 Project File
+    ├── vs2022                # Visual Studio 2022 Project File
     ├── watcom                # Open Watcom 1.9 Project File
     ├── xcode                 # Apple Xcode Project File
     ├── LICENSE.md
